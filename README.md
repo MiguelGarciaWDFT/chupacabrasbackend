@@ -48,11 +48,32 @@ package-lock.json
 Subiremos nuestro backend a Github, en la terminal de nuestra carpeta usaremos los siguientes comandos server
 git init
 git add -A
-git commit - "Servidor inicial"
+git commit -m "Backend inicial"
 
+<-Crearemos un repositorio para nuestro backend
+repo.new > chupacabrasbackend> seguiremos las intrucciones para conectar el repositorio a nuestro proyecto
 
-Cuando tengamos listo nuestro CRUD haremos un deploy de nuestro backend en HEROKU creando una nueva APP con el nombre de nuestra pagina.
+git remote add origin https://github.com/MiguelGarciaWDFT/chupacabrasbackend.git
 
+git push origin master 
+
+Usaremos MongoDB atlas, en nuestro archivo .env haremos la conexion con la url que nos da MongoDB
+
+Cuando tengamos listo nuestro CRUD haremos un deploy de nuestro backend en HEROKU creando una nueva APP con el nombre de nuestra pagina, conectando nuestro repositorio y configurando las variables de entorno.
+
+Al obtener nuestro link de Heroku podemos agregarlo a Postman para hacer el mismo proceso de CRUD, todos los cambios de la base de datos se reflejaran en MongoAtlas.
+
+Dentro de la carpeta models se crea un archivo User.js en el que crearemos el modelo del usuario, el esquema sera creado
+para que pueda iniciar sesion un administrador o super usuario y que se diferencie del usuario normal.
+
+En nuestro index.js principal agregamos la ruta para el usuario.
+
+En la carpeta routes crearemos un archivo users.js que tendra las rutas hacia la creacion de usuario, el inicion de sesion y la verificacion del token 
+
+En la carpeta de controllers crearemos un userControllers.js
+que tendra todas nuestras funciones para que cada interaccion con el usuario funcione, es un proceso parecido al de crear las revistas y confimaremos cada funcion con POSTMAN.
+
+Para trabajar de forma correcta sobre el userController debemos instalar 2 librerias, sobre nuestra terminal de server: npm install bcryptjs y npm install jsonwebtoken, ademas deberemos asignar un string a secret en nuestro archivo .env 
 
 
 

@@ -19,7 +19,7 @@ app.use(express.json())
 
 // 3. RUTAS
 app.use("/revistas", require("./routes/revistas"))
-
+app.use("/users", require("./routes/users"))
 
 //app.use("/")
 
