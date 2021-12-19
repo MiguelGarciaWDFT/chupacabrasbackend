@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
 
 	// 1. OBTENER USUARIO, EMAIL Y PASSWORD DEL FORMULARIO (REQ)
 	const { 
-		superusuario,
+		typeUser,
 		nombre,
 		email,
 		password
@@ -22,7 +22,7 @@ exports.create = async (req, res) => {
 
 		// 4. CREAR USUARIO EN BASE DE DATOS
 		const newUser = await User.create({
-			superusuario,
+			typeUser,
 			nombre,
 			email,
 			password: hashedPassword

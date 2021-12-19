@@ -3,8 +3,8 @@ const mongoose = require("mongoose")
 
 // 2. SCHEMAS
 const userSchema = mongoose.Schema({
-    superusuario:{
-        type:String,//puede ser booleano para diferenciar entre usuario y administrador
+    typeUser:{
+        type:String,//admin=administrador, user=usuario
         require:true
     },
 	nombre: {
