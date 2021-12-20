@@ -3,6 +3,10 @@ const mongoose = require("mongoose")
 
 // 2. SCHEMA
 const revistaSchema = mongoose.Schema({
+	urlPdf: {
+		type: String,
+		required: true
+	},
 	imagen: {
 		type: String,
 		required: true
@@ -17,6 +21,18 @@ const revistaSchema = mongoose.Schema({
 	},
 	descripcion: {
 		type: String,
+		required: true
+	},
+	likes: {
+		type: Number,
+		required: true
+	},
+	views: {
+		type: Number,
+		required: true
+	},
+	comentarios: {
+		type: Array,
 		required: true
 	}
 })
