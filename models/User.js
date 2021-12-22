@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const userSchema = mongoose.Schema({
     typeUser:{
         type:String,//admin=administrador, user=usuario
-        require:true
+        default: 'user'
     },
 	nombre: {
 		type: String,
