@@ -30,10 +30,6 @@ const revistaSchema = mongoose.Schema({
 	views: {
 		type: Number,
 		default:0
-	},
-	comentarios: {
-		type: Array,
-		default:[]
 	}
 })
 

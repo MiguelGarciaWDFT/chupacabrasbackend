@@ -1,84 +1,83 @@
----Creacion de la pagina chupacabrasfanzine---
+# Backend de la Aplicación Chupacabras Fanzine
 
 Se inicio el proyecto creando una carpeta principal
 que contendra dos carpetas importantes, la de server
-y la de client, en server se trabajan las instalaciones
-de express, mongoose y dotenv para poder levantar un servidor. En la carpeta client se trabaja haciendo 
-una instalacion basica de React: npx create-react-app .
+y la de client, en server instalamos las dependencias:
 
----SERVER---
-Debemos de crear un archivo .env sobre la carpeta server la cual tendra el puerto a conectar y el string con el nombre de la base de datos.
+* bcryptjs
+* cors
+* dotenv
+* express
+* jsonwebtoken
+* mongoose
 
-En la carpeta de server crearemos un archivo index.js que nos serviara durante todo el proyecto para gestionar la conexion a base de datos y el enlace a nuestras subrutas
-constantemente actualizaremos importaciones, middlewares, rutas y el servidor.
+En este Backend podemos encontrar el CRUD (Create, Read, Update y Delete) de los modelos.
 
-Recordemos que en nuestro package.json configuraremos nuestros scrips:
- "dev": "nodemon index.js",
- "start": "node index.js"
+Contamos con los modelos de:
+* Usuarios 
+* Revistas
 
-En la carpeta server se crea la siguiente carpeta y archivo:
-config > db.js > tendra nuestro patron modular de la base de datos
+Trabajaremos con POSTMAN que nos ayudara a gestionar las APIS de nuestro proyecto, de momento sustituye a nuestro navegador, aqui se realizan pruebras de POST, GET, PUT Y DELETE. 
 
-si todo es correcto podemos usar el comando npm run dev
-para verificar que estamos conectados a nuestra base de datos
+Iniciamos creando el "Index.js" que es donde se hace la conexión a la base de datos de MongoDB, en la cual utilizaremos la base de Producción, así mismo se crea la conexión al servidor, se establecen los Middlewares y se inician las rutas. 
 
-En la carpeta server se crea la siguiente carpeta y archivos:
-models>User.js
-      >Revista.js tendra nuestro esquema de la revista
-Actualizaremos nuestro index.js con la subruta de nuestra revista que se conecta a nuestra rutas
-
-A continuacion en la carpeta server se crea la siguiente carpeta y archivos:
-routes> guitar.js > para realizar el proceso de ruta: importaciones, ruteo y exportaciones las cuales se estaran
-actualizando y gestionando los controllers
-
-A continuacion en la carpeta server se crea la siguiente carpeta y archivos:
-controllers>revistaController.js que enviara las funciones de los controladores
------
-Trabajaremos con POSTMAN que nos ayudara a gestionar las APIS de nuestro proyecto, de momento sustituye a nuestro navegador, aqui se realizan pruebras de POST, GET, PUT Y DELETE. y tambien gestiona los deploys. Se crea un workspace, una coleccion y un folder, en dicho folder se trabajan las APIs.
------
-
-Trabajaremos constantemente creando nuevas funciones sobre nuestro controller que nos permita crear, leer, editar y borrar nuestras revistas, de igual forma anexaremos rutas a nuestra ruta raiz para que funcione nuestro CRUD y verificaremos cada accion en POSTMAN.
-
-Crearemos un archivo dentro de server llamado .gitignore
-con:
-node_modules/
-.env
-package-lock.json
-
-Subiremos nuestro backend a Github, en la terminal de nuestra carpeta usaremos los siguientes comandos server
-git init
-git add -A
-git commit -m "Backend inicial"
-
-<-Crearemos un repositorio para nuestro backend
-repo.new > chupacabrasbackend> seguiremos las intrucciones para conectar el repositorio a nuestro proyecto
-
-git remote add origin https://github.com/MiguelGarciaWDFT/chupacabrasbackend.git
-
-git push origin master 
-
-Usaremos MongoDB atlas, en nuestro archivo .env haremos la conexion con la url que nos da MongoDB
-
-Cuando tengamos listo nuestro CRUD haremos un deploy de nuestro backend en HEROKU creando una nueva APP con el nombre de nuestra pagina, conectando nuestro repositorio y configurando las variables de entorno.
-
-Al obtener nuestro link de Heroku podemos agregarlo a Postman para hacer el mismo proceso de CRUD, todos los cambios de la base de datos se reflejaran en MongoAtlas.
-
-Dentro de la carpeta models se crea un archivo User.js en el que crearemos el modelo del usuario, el esquema sera creado
-para que pueda iniciar sesion un administrador o super usuario y que se diferencie del usuario normal.
-
-En nuestro index.js principal agregamos la ruta para el usuario.
-
-En la carpeta routes crearemos un archivo users.js que tendra las rutas hacia la creacion de usuario, el inicion de sesion y la verificacion del token 
-
-En la carpeta de controllers crearemos un userControllers.js
-que tendra todas nuestras funciones para que cada interaccion con el usuario funcione, es un proceso parecido al de crear las revistas y confimaremos cada funcion con POSTMAN.
+Posteriormente en la carpeta de "routes" creamos las rutas para el CRUD de cada uno de los modelos, que tendrán sus controllers en la carpeta de "controllers".
 
 Para trabajar de forma correcta sobre el userController debemos instalar 2 librerias, sobre nuestra terminal de server: npm install bcryptjs y npm install jsonwebtoken, ademas deberemos asignar un string a secret en nuestro archivo .env 
 
+## Modelo Usuario - User. 
+
+Cuenta con las propiedades de:
+
+* type User - String, obligatorio, cuenta con una validacion en el frontend
+* nombre - String.
+* Country - String.
+* email - String, cuenta con validación en el frontend
+* Password - String,
 
 
+Este modelo tiene tres rutas:
 
+* Creación de usuario. 
+Para su creación se utilizó el modelo de User, la dependencia de "bcryptjs" para encriptar el password y la creación de un token que fue firmado con la dependencia de "JsonWebToken"
 
+* Iniciar sesión de usuario.
+Para la sesión se obtiene el email y el password del formulario por medio del "req.body", usando un try/catch de encuentra el usuario en la base de datos, al encontrarlo compara la contraseña encriptada con "bcryptjs", establece un payload y nuevamente "jsonwebtoken" firma el token.
 
+* Verificación de Token del usuario.
+Se usó un try/catch para encontrar el ID del usuario loggeado en la base de datos.
+Usa la autorización de "jsonwebtoken" para capturar el token, guardarlo en una variable, si hay token permite al usuario seguir, si no hay no puede seguir viendo la página.
 
+## Modelo de Revistas  
 
+Cuenta con las propiedades de:
+
+* urlPdf - String,
+* imagen - String,
+* nombre - String,
+* edicion - String,
+* descripcion - String,
+* likes - String,
+* views - String,
+
+Las rutas son dos: 
+
+* Lectura de todos las revistas. 
+
+* Lectura de una revista.
+
+## 🛠 Construido con 🛠
+
+* NodeJS
+* Express
+* Mongoose
+* JavaScript - Funciones CRUD
+* MongoDB - Base de datos
+* Heroku - Despliegue
+
+# Dependencias
+
+* bcryptjs
+* cors
+* dotenv
+* jsonwebtoken
